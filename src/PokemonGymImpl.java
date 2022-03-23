@@ -1,57 +1,16 @@
+import java.util.List;
 import java.util.*;
 
-public class Methodes {
-    /*De volgende 16 methodes zijn aanvallen*/
-    void surf(Pokemon name, Pokemon enemy);
+public class PokemonGymImpl implements PokemonGym {
 
-    void fireLash(Pokemon name, Pokemon enemy);
-
-    public void leafStorm(Pokemon name, Pokemon enemy);
-
-    void hydroPump(Pokemon name, Pokemon enemy);
-
-    void thunderPunch(Pokemon name, Pokemon enemy);
-
-    void electroBall(Pokemon name, Pokemon enemy);
-
-    public void solarBeam(Pokemon name, Pokemon enemy);
-
-    void flameThrower(Pokemon name, Pokemon enemy);
-
-    void hydroCanon(Pokemon name, Pokemon enemy);
-
-    void pyroBall(Pokemon name, Pokemon enemy);
-
-    void thunder(Pokemon name, Pokemon enemy);
-
-    void rainDance(Pokemon name, Pokemon enemy);
-
-    public void leechSeed(Pokemon name, Pokemon enemy);
-
-    public void leaveBlade(Pokemon name, Pokemon enemy);
-
-    void inferno(Pokemon name, Pokemon enemy);
-
-    void voltTackle(Pokemon name, Pokemon enemy);
-
-    /*deze methode komt op meerdere plaatsen terug*/
-    List<String> getAttacks() {
-        return attacks;
-    }
-
-    public List<Pokemon> getPokemonList() {
-        return Arrays.asList(getCharizard(), getBlastoise(), getDitto(), getGyarados(), getRaichu(), getVenusaur());
-    }
-
-    /*Deze methodes mogen geïmplementeerd worden in de interface*/
-
+    @Override
     public void enteredTheGym(PokemonTrainer player1) {
         PokemonGymOwner gymOwner = new PokemonGymOwner();
         System.out.println("You have entered the gymOwner");
         System.out.println("In front of you stands a pokemontrainer");
-        System.out.println("Brock: Hello stranger, I'm " +gymOwner.getBrock().getName() + " the gym owner of the Oreburgh. Who are you?");
-        System.out.println("I'm " + player1.getName() + " and I'm here to challenge you for a battle");
-        System.out.println("So you are after my badge too, let's fight!!!");
+        System.out.println("Brock: Hello stranger, I'm " +gymOwner.getBrock().getName() + " the gymowner of the Oreburgh-gymOwner. Who are you?");
+        System.out.println("I'm " + player1.getName() + " and i'm here to challenge you for a battle");
+        System.out.println("So your after mine badge to, lets fight!!!");
 
         Pokemon gymPokemon = chooseGymPokemon(gymOwner);
         System.out.println(gymOwner.getBrock().getName() + ": I'll choose you, " + gymPokemon.getName());
@@ -62,12 +21,14 @@ public class Methodes {
 
     }
 
+    @Override
     public void printPokemon(List<Pokemon> pokemons) {
         for (Pokemon p : pokemons) {
             System.out.println(p.getName());
         }
     }
 
+    @Override
     public Pokemon selectPokemon(String pokemon, PokemonTrainer trainer) {
         List<Pokemon> pokemons = trainer.getPokemons();
         int number = 0;
@@ -79,13 +40,14 @@ public class Methodes {
         return pokemons.get(number);
     }
 
+    @Override
     public void fightRound(PokemonTrainer trainer, PokemonGymOwner owner, Pokemon pokemon, Pokemon gymPokemon) {
         Scanner speler_A = new Scanner(System.in);
         while (pokemon.getHp() > 0 && gymPokemon.getHp() > 0) {
 
-            System.out.println("It's " + owner.getBrock().getName() + "'s turn to attack");
+            System.out.println("Its " + owner.getBrock().getName() + "'s turn to attack");
             gymOwnerAttacks(gymPokemon, pokemon);
-            System.out.println("It's " + trainer.getName() + "'s turn to attack");
+            System.out.println("Its " + trainer.getName() + "'s turn to attack");
             attackOrChange(pokemon, gymPokemon, trainer, owner);
 
         }
@@ -104,6 +66,7 @@ public class Methodes {
         }
     }
 
+    @Override
     public Pokemon chooseGymPokemon(PokemonGymOwner gymOwner){
         Random rand = new Random();
         List<Pokemon> pokemons = new ArrayList<>();
@@ -117,6 +80,7 @@ public class Methodes {
         return pokemons.get(randomNumber);
     }
 
+    @Override
     public Pokemon choosePokemon(PokemonTrainer trainer){
         Scanner speler_A = new Scanner(System.in);
         List<Pokemon> pokemons = new ArrayList<>();
@@ -133,12 +97,14 @@ public class Methodes {
         return selectPokemon(pokemon, trainer);
     }
 
+    @Override
     public int randomAttackByGymOwner(){
         Random rand = new Random();
         int maxAttacks = 4;
         return rand.nextInt(maxAttacks);
     }
 
+    @Override
     public String chooseAttackPlayer(Pokemon p){
         Scanner speler_A = new Scanner(System.in);
         String type = p.getType();
@@ -170,6 +136,7 @@ public class Methodes {
         }
     }
 
+    @Override
     public void performAttackPlayer(Pokemon pokemon, Pokemon gymPokemon, String attack){
         FirePokemon fire;
         ElectricPokemon electric;
@@ -218,6 +185,7 @@ public class Methodes {
         }
     }
 
+    @Override
     public void gymOwnerAttacks(Pokemon gymPokemon, Pokemon pokemon){
         FirePokemon fire;
         ElectricPokemon electric;
@@ -268,6 +236,7 @@ public class Methodes {
         }
     }
 
+    @Override
     public void attackOrChange(Pokemon pokemon, Pokemon gymPokemon, PokemonTrainer trainer, PokemonGymOwner gym){
         Scanner speler_A = new Scanner(System.in);
 
